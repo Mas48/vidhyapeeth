@@ -1,0 +1,655 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#0b1220" />
+  <meta name="description" content="Portfolio — Single-page resume website" />
+  <title>Portfolio | Your Name</title>
+
+  <style>
+    :root{
+      --bg:#0b1220;
+      --panel:#0f1a33;
+      --panel2:#0c1730;
+      --text:#e8eefc;
+      --muted:#a9b7d6;
+      --faint:#6f7fa6;
+      --brand:#5eead4;
+      --brand2:#60a5fa;
+      --ring: rgba(94,234,212,.35);
+      --border: rgba(232,238,252,.12);
+      --shadow: 0 16px 40px rgba(0,0,0,.35);
+      --radius: 18px;
+      --max: 1100px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: radial-gradient(1200px 500px at 15% 10%, rgba(96,165,250,.18), transparent 55%),
+                  radial-gradient(900px 450px at 80% 20%, rgba(94,234,212,.14), transparent 60%),
+                  linear-gradient(180deg, var(--bg), #070b14 60%, #060910);
+      color:var(--text);
+      line-height:1.5;
+    }
+
+    a{color:inherit; text-decoration:none}
+    a:hover{color:var(--brand)}
+    img{max-width:100%; display:block}
+
+    /* Layout */
+    .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 60px}
+    .grid{
+      display:grid;
+      gap:18px;
+      grid-template-columns: 1fr;
+    }
+
+    /* Header */
+    header{
+      position:sticky;
+      top:0;
+      z-index:50;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(180deg, rgba(11,18,32,.85), rgba(11,18,32,.55));
+      border-bottom: 1px solid var(--border);
+    }
+    .nav{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:12px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width: 180px;
+    }
+    .logo{
+      width:34px; height:34px;
+      border-radius:12px;
+      background: linear-gradient(135deg, rgba(94,234,212,.85), rgba(96,165,250,.75));
+      box-shadow: 0 10px 24px rgba(94,234,212,.15);
+      border: 1px solid rgba(255,255,255,.18);
+      flex:0 0 auto;
+    }
+    .brand h1{
+      margin:0;
+      font-size:14px;
+      font-weight:700;
+      letter-spacing:.4px;
+    }
+    .brand p{
+      margin:0;
+      font-size:12px;
+      color:var(--muted);
+    }
+
+    .navlinks{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      gap:8px;
+    }
+    .pill{
+      font-size:12px;
+      color:var(--muted);
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background: rgba(15,26,51,.55);
+      transition: .2s ease;
+      cursor:pointer;
+      user-select:none;
+    }
+    .pill:hover{
+      color:var(--text);
+      border-color: rgba(94,234,212,.35);
+      box-shadow: 0 0 0 4px var(--ring);
+    }
+
+    /* Hero */
+    .hero{
+      margin-top:20px;
+      display:grid;
+      gap:18px;
+      grid-template-columns: 1fr;
+      align-items:stretch;
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(15,26,51,.75), rgba(12,23,48,.75));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .card-inner{padding:18px}
+    .hero-top{
+      display:flex;
+      gap:16px;
+      align-items:flex-start;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    .titleblock h2{
+      margin:0;
+      font-size:26px;
+      line-height:1.15;
+      letter-spacing:.2px;
+    }
+    .subtitle{
+      margin:10px 0 0;
+      color:var(--muted);
+      max-width: 72ch;
+      font-size:14px;
+    }
+    .meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:14px;
+    }
+    .tag{
+      font-size:12px;
+      color: var(--text);
+      padding:7px 10px;
+      border-radius: 999px;
+      border:1px solid var(--border);
+      background: rgba(7,11,20,.35);
+    }
+    .cta{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-top:16px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:10px 12px;
+      border-radius: 12px;
+      border:1px solid var(--border);
+      background: rgba(15,26,51,.55);
+      color: var(--text);
+      font-size:13px;
+      font-weight:650;
+      cursor:pointer;
+      transition:.2s ease;
+    }
+    .btn:hover{
+      border-color: rgba(94,234,212,.45);
+      box-shadow: 0 0 0 4px var(--ring);
+      transform: translateY(-1px);
+    }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(94,234,212,.25), rgba(96,165,250,.25));
+      border-color: rgba(94,234,212,.35);
+    }
+    .btn small{color:var(--muted); font-weight:600}
+
+    .photo-card{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      min-width: 220px;
+      max-width: 320px;
+      margin-left:auto;
+    }
+    .photo{
+      aspect-ratio: 4/5;
+      border-radius: 16px;
+      border:1px dashed rgba(232,238,252,.28);
+      background:
+        linear-gradient(180deg, rgba(15,26,51,.55), rgba(12,23,48,.55)),
+        radial-gradient(400px 220px at 30% 20%, rgba(96,165,250,.18), transparent 50%),
+        radial-gradient(420px 260px at 80% 35%, rgba(94,234,212,.16), transparent 55%);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:14px;
+      color:var(--muted);
+      font-size:12px;
+    }
+    .photo b{color:var(--text)}
+    .social{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    /* Sections */
+    section{scroll-margin-top:90px}
+    .section-head{
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap:10px;
+      padding:16px 18px 0;
+    }
+    .section-head h3{
+      margin:0;
+      font-size:16px;
+      letter-spacing:.3px;
+    }
+    .section-head span{
+      color:var(--faint);
+      font-size:12px;
+    }
+    .divider{
+      height:1px;
+      background: var(--border);
+      margin:14px 18px 0;
+    }
+    .content{padding:16px 18px 18px}
+
+    /* Lists / pills */
+    .chipgrid{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+    .chip{
+      font-size:12px;
+      padding:8px 10px;
+      border-radius: 999px;
+      border:1px solid var(--border);
+      background: rgba(7,11,20,.35);
+      color: var(--muted);
+    }
+    .chip strong{color:var(--text); font-weight:700}
+
+    /* Experience timeline */
+    .timeline{display:grid; gap:14px}
+    .xp{
+      padding:14px;
+      border:1px solid var(--border);
+      border-radius: 16px;
+      background: rgba(7,11,20,.28);
+    }
+    .xp-head{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:space-between;
+      gap:8px;
+      align-items:baseline;
+    }
+    .xp h4{
+      margin:0;
+      font-size:14px;
+      letter-spacing:.2px;
+    }
+    .xp .where{color:var(--muted); font-size:12px; margin-top:6px}
+    .xp .when{color:var(--faint); font-size:12px}
+    .xp ul{
+      margin:10px 0 0 18px;
+      padding:0;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .xp li{margin:6px 0}
+
+    /* Two-column on larger screens */
+    @media (min-width: 860px){
+      .hero{grid-template-columns: 1.7fr .9fr}
+      .grid{
+        grid-template-columns: 1.2fr .8fr;
+        align-items:start;
+      }
+      .span-2{grid-column:1 / -1}
+    }
+
+    /* Footer */
+    footer{
+      margin-top:22px;
+      color:var(--faint);
+      font-size:12px;
+      text-align:center;
+      padding:22px 0 0;
+    }
+
+    /* Reduce motion */
+    @media (prefers-reduced-motion: reduce){
+      *{transition:none !important; scroll-behavior:auto !important}
+      .btn:hover{transform:none}
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Sticky Navigation -->
+  <header>
+    <div class="nav">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1><!-- TODO: Your Name -->Your Name</h1>
+          <p><!-- TODO: Title -->Role / Title</p>
+        </div>
+      </div>
+
+      <nav class="navlinks" aria-label="Primary">
+        <a class="pill" href="#about">About</a>
+        <a class="pill" href="#soft-skills">Soft Skills</a>
+        <a class="pill" href="#experiences">Experiences</a>
+        <a class="pill" href="#core-competencies">Core Competencies</a>
+        <a class="pill" href="#certifications">Certifications</a>
+        <a class="pill" href="#technical-skills">Technical Skills</a>
+        <a class="pill" href="#achievements">Achievements</a>
+        <a class="pill" href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- HERO -->
+    <div class="hero">
+      <section class="card" aria-label="Intro">
+        <div class="card-inner">
+          <div class="hero-top">
+            <div class="titleblock">
+              <h2><!-- TODO: Headline -->Building outcomes, not busywork.</h2>
+              <p class="subtitle">
+                <!-- TODO: Paste your resume summary here -->
+                Paste your resume summary/intro here. Keep it crisp: who you are, what you do, what outcomes you drive, and the domain you specialize in.
+              </p>
+
+              <div class="meta" aria-label="Quick highlights">
+                <!-- TODO: Replace tags based on resume -->
+                <span class="tag">📍 Location: <b>City, Country</b></span>
+                <span class="tag">🧭 Domain: <b>Finance / Product / Ops</b></span>
+                <span class="tag">🧠 Focus: <b>Execution + Analysis</b></span>
+              </div>
+
+              <div class="cta">
+                <a class="btn primary" href="#contact" title="Jump to contact">
+                  Contact
+                  <small>→</small>
+                </a>
+
+                <!-- Placeholder links -->
+                <a class="btn" href="#" target="_blank" rel="noreferrer" title="Add your resume PDF link">
+                  Resume PDF
+                  <small>↗</small>
+                </a>
+                <a class="btn" href="#" target="_blank" rel="noreferrer" title="Add LinkedIn URL">
+                  LinkedIn
+                  <small>↗</small>
+                </a>
+                <a class="btn" href="#" target="_blank" rel="noreferrer" title="Add GitHub/Portfolio/Notion link">
+                  Portfolio Link
+                  <small>↗</small>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="card" aria-label="Photo and links">
+        <div class="card-inner">
+          <div class="photo" role="img" aria-label="Profile photo placeholder">
+            <div>
+              <b>Photo Placeholder</b><br />
+              Replace with your photo.<br />
+              <span style="color:var(--faint)">Recommended: 800×1000px</span>
+            </div>
+          </div>
+
+          <div class="social" aria-label="Social links">
+            <!-- TODO: Replace href -->
+            <a class="btn" href="#" target="_blank" rel="noreferrer">LinkedIn <small>↗</small></a>
+            <a class="btn" href="#" target="_blank" rel="noreferrer">GitHub <small>↗</small></a>
+            <a class="btn" href="#" target="_blank" rel="noreferrer">YouTube <small>↗</small></a>
+            <a class="btn" href="#" target="_blank" rel="noreferrer">Email <small>↗</small></a>
+          </div>
+
+          <div style="margin-top:12px; color:var(--muted); font-size:13px">
+            <!-- TODO: One-liner -->
+            <b style="color:var(--text)">Now:</b> Open to roles in <u>________</u>. Based in <u>________</u>.
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- MAIN GRID -->
+    <div class="grid" style="margin-top:18px;">
+      <!-- About -->
+      <section id="about" class="card span-2">
+        <div class="section-head">
+          <h3>About</h3>
+          <span>Snapshot</span>
+        </div>
+        <div class="divider"></div>
+        <div class="content">
+          <!-- TODO: Paste/convert resume about text -->
+          <p style="margin:0; color:var(--muted); font-size:14px; max-width: 90ch;">
+            Paste your resume “About / Summary” text here. Keep this practical: years of experience, industries, strengths, and what you’re aiming for.
+          </p>
+        </div>
+      </section>
+
+      <!-- Soft Skills -->
+      <section id="soft-skills" class="card">
+        <div class="section-head">
+          <h3>Soft Skills</h3>
+          <span>How you work</span>
+        </div>
+        <div class="divider"></div>
+        <div class="content">
+          <div class="chipgrid">
+            <!-- TODO: Replace with your soft skills -->
+            <span class="chip"><strong>Communication</strong> — clear, concise</span>
+            <span class="chip"><strong>Ownership</strong> — takes initiative</span>
+            <span class="chip"><strong>Stakeholder Mgmt</strong></span>
+            <span class="chip"><strong>Problem Solving</strong></span>
+            <span class="chip"><strong>Adaptability</strong></span>
+            <span class="chip"><strong>Time Management</strong></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Core Competencies -->
+      <section id="core-competencies" class="card">
+        <div class="section-head">
+          <h3>Core Competencies</h3>
+          <span>What you’re good at</span>
+        </div>
+        <div class="divider"></div>
+        <div class="content">
+          <div class="chipgrid">
+            <!-- TODO: Replace with your competencies -->
+            <span class="chip"><strong>Financial Literacy</strong> / Education</span>
+            <span class="chip"><strong>Content Strategy</strong></span>
+            <span class="chip"><strong>Research</strong> & Insights</span>
+            <span class="chip"><strong>Customer Support</strong> / Ops</span>
+            <span class="chip"><strong>Process Improvement</strong></span>
+            <span class="chip"><strong>Reporting</strong> / Dashboards</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Experiences -->
+      <section id="experiences" class="card span-2">
+        <div class="section-head">
+          <h3>Experiences</h3>
+          <span>Roles & impact</span>
+        </div>
+        <div class="divider"></div>
+        <div class="content">
+          <div class="timeline">
+            <!-- TODO: Replace each experience block with your resume entries -->
+            <article class="xp">
+              <div class="xp-head">
+                <h4>Job Title — Company Name</h4>
+                <div class="when">MMM YYYY — MMM YYYY | City</div>
+              </div>
+              <div class="where">Team / Function (optional)</div>
+              <ul>
+                <li>Impact bullet with a metric (%, ₹, time saved, growth, conversion, etc.).</li>
+                <li>Responsibility + what tools/processes you used.</li>
+                <li>Outcome/learning: what changed because of your work.</li>
+              </ul>
+            </article>
+
+            <article class="xp">
+              <div class="xp-head">
+                <h4>Job Title — Company Name</h4>
+                <div class="when">MMM YYYY — MMM YYYY | City</div>
+              </div>
+              <div class="where">Team / Function (optional)</div>
+              <ul>
+                <li>Highlight a project or ownership area.</li>
+                <li>Use strong verbs: led, built, improved, streamlined, analyzed.</li>
+                <li>Keep it factual; avoid fluffy claims without evidence.</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Certifications -->
+      <section id="certifications" class="card">
+        <div class="section-head">
+          <h3>Certifications</h3>
+          <span>Proof of skill</span>
+        </div>
+        <div class="divider"></div>
+        <div class="content">
+          <ul style="margin:0; padding-left:18px; color:var(--muted); font-size:14px;">
+            <!-- TODO: Replace with your certifications -->
+            <li><b style="color:var(--text)">Certification Name</b> — Issuer (Year) · <a href="#" target="_blank" rel="noreferrer">Credential Link</a></li>
+            <li><b style="color:var(--text)">Certification Name</b> — Issuer (Year) · <a href="#" target="_blank" rel="noreferrer">Credential Link</a></li>
+            <li><b style="color:var(--text)">Certification Name</b> — Issuer (Year) · <a href="#" target="_blank" rel="noreferrer">Credential Link</a></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Technical Skills -->
+      <section id="technical-skills" class="card">
+        <div class="section-head">
+          <h3>Technical Skills</h3>
+          <span>Tools you use</span>
+        </div>
+        <div class="divider"></div>
+        <div class="content">
+          <div class="chipgrid">
+            <!-- TODO: Replace with your technical skills -->
+            <span class="chip"><strong>MS Excel</strong> (Pivot, VLOOKUP, Sheets)</span>
+            <span class="chip"><strong>Google Workspace</strong></span>
+            <span class="chip"><strong>Canva</strong></span>
+            <span class="chip"><strong>PowerPoint</strong></span>
+            <span class="chip"><strong>CRM</strong> (HubSpot/Zoho)</span>
+            <span class="chip"><strong>AI Tools</strong> (ChatGPT, etc.)</span>
+          </div>
+
+          <div style="margin-top:12px; padding:12px; border:1px solid var(--border); border-radius:14px; background: rgba(7,11,20,.25);">
+            <div style="font-size:12px; color:var(--faint); margin-bottom:6px;">Project Links (placeholders)</div>
+            <div class="chipgrid">
+              <a class="chip" href="#" target="_blank" rel="noreferrer"><strong>Project 1</strong> — Link ↗</a>
+              <a class="chip" href="#" target="_blank" rel="noreferrer"><strong>Project 2</strong> — Link ↗</a>
+              <a class="chip" href="#" target="_blank" rel="noreferrer"><strong>Case Study</strong> — Link ↗</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Achievements -->
+      <section id="achievements" class="card span-2">
+        <div class="section-head">
+          <h3>Achievements</h3>
+          <span>Results that matter</span>
+        </div>
+        <div class="divider"></div>
+        <div class="content">
+          <ul style="margin:0; padding-left:18px; color:var(--muted); font-size:14px;">
+            <!-- TODO: Replace with your achievements -->
+            <li>Achievement with an outcome metric (e.g., “Improved X by Y% in Z weeks”).</li>
+            <li>Award / recognition / ranking / leadership role (with year).</li>
+            <li>Published content / talks / workshops (with link placeholders).</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section id="contact" class="card span-2">
+        <div class="section-head">
+          <h3>Contact</h3>
+          <span>Let’s connect</span>
+        </div>
+        <div class="divider"></div>
+        <div class="content">
+          <div style="display:grid; gap:12px; grid-template-columns: 1fr;">
+            <div style="display:flex; flex-wrap:wrap; gap:10px;">
+              <!-- TODO: Replace values/hrefs -->
+              <a class="btn primary" href="mailto:yourname@email.com">Email <small>→</small></a>
+              <a class="btn" href="#" target="_blank" rel="noreferrer">LinkedIn <small>↗</small></a>
+              <a class="btn" href="#" target="_blank" rel="noreferrer">GitHub <small>↗</small></a>
+              <a class="btn" href="#" target="_blank" rel="noreferrer">Calendly <small>↗</small></a>
+            </div>
+
+            <div style="display:grid; gap:12px; grid-template-columns: 1fr; margin-top:6px;">
+              <div style="padding:14px; border:1px solid var(--border); border-radius:16px; background: rgba(7,11,20,.25);">
+                <div style="display:flex; flex-wrap:wrap; gap:14px; align-items:flex-start; justify-content:space-between;">
+                  <div>
+                    <div style="font-size:12px; color:var(--faint);">Email</div>
+                    <div style="font-weight:700;">yourname@email.com</div>
+                  </div>
+                  <div>
+                    <div style="font-size:12px; color:var(--faint);">Phone</div>
+                    <div style="font-weight:700;">+91-XXXXXXXXXX</div>
+                  </div>
+                  <div>
+                    <div style="font-size:12px; color:var(--faint);">Location</div>
+                    <div style="font-weight:700;">City, India</div>
+                  </div>
+                </div>
+
+                <div style="margin-top:10px; color:var(--muted); font-size:13px;">
+                  <!-- TODO: Short contact note -->
+                  Prefer email for first contact. Share role scope + timeline and I’ll respond with availability.
+                </div>
+              </div>
+
+              <div style="padding:14px; border:1px dashed rgba(232,238,252,.28); border-radius:16px; background: rgba(15,26,51,.25);">
+                <div style="font-size:12px; color:var(--faint); margin-bottom:6px;">Optional: Contact Form Placeholder</div>
+                <div style="color:var(--muted); font-size:13px;">
+                  If you want a working form, you’ll need a backend (or a service like Formspree). For now, this is a placeholder UI.
+                </div>
+                <div style="display:grid; gap:10px; margin-top:10px;">
+                  <input disabled placeholder="Your name" style="padding:11px 12px; border-radius:12px; border:1px solid var(--border); background: rgba(7,11,20,.35); color:var(--muted);" />
+                  <input disabled placeholder="Your email" style="padding:11px 12px; border-radius:12px; border:1px solid var(--border); background: rgba(7,11,20,.35); color:var(--muted);" />
+                  <textarea disabled rows="4" placeholder="Your message" style="padding:11px 12px; border-radius:12px; border:1px solid var(--border); background: rgba(7,11,20,.35); color:var(--muted); resize:vertical;"></textarea>
+                  <button class="btn" disabled style="opacity:.7; cursor:not-allowed;">Send (disabled)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      <div>
+        © <span id="year"></span> <!-- TODO: Your Name -->Your Name · Built as a single-page HTML file.
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // Smooth scroll for internal anchors (keeps it simple + accessible)
+    document.documentElement.style.scrollBehavior = "smooth";
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
